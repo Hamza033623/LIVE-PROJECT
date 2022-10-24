@@ -1,0 +1,52 @@
+include ../../raiseFunds/templates/menu.pug
+
+- pug_html += app.breadcrumbs('create form c', '', [ ['Home', '/'], ['Create Form C', '/formc/' + values.id + '/introduction'], ['related parties', ''], ]);
+
+
+section.formc-related-parties.container.m-b-85
+  - var campaignId = values.campaign_id;
+  .row
+    +menu('formc', 'related-parties')
+
+    //START RIGHT BLOCK
+    .col-xl-8.col-lg-8.col-md-12
+      .row
+        .col-xl-12
+          h2.text-uppercase.text-lg-center.text-xs-center.m-t-0.mb45 related parties
+      .row
+        .col-lg-12 
+          p.pb10 Please describe any transaction or proposed transaction with related parties in the last 12 months. You may want to be over-inclusive here, particularly with related party transactions that could have the appearance of a conflict of interest or a form of self-dealing. In general, if a transaction involved a potential conflict of interest that needed to be disclosed to the Board of Directors (or required shareholder approval), then it should be disclosed.
+        .col-lg-12
+          p Related parties is defined as: any director, officer or 20% voting shareholder, any promoter, or any family member of the foregoing persons. Family member includes any child, stepchild, grandchild, parent, stepparent, grandparent, spouse or spousal equivalent, sibling, mother-in-law, father-in-law, son-in-law, daughter-in-law, brother-in-law, or sister-in-law of the person, and includes adoptive relationships. The term “spousal equivalent” means a cohabitant occupying a relationship generally equivalent to that of a spouse.
+        .col-lg-12
+          h3.text-xs-center Examples of Related Party Transactions You Should Disclose
+          ul.m-b-0
+            li.pb10 Your company has a development contract with a company that is owned by the CEO’s sister
+            li.pb10 Your company has an agreement in place giving a board member the right to perform accounting    services for the company
+            li.pb10 Your company has guaranteed certain personal debt of your CFO
+            li.pb10 One of your subsidiaries purchases real estate and personal property from a company controlled by a board member
+            li.pb10 One of your shareholders holding 30% voting power enters into an agreement licensing certain intellectual property to/from your company
+            li The parent of one of your officers lets your company use one of their properties as a corporate office in exchange for the right to purchase certain material assets or intellectual property
+      .row
+        .col-lg-12
+          .border-bottom.m-t-3.m-b-3
+      .row
+        .col-lg-12
+          b Have you had any transactions with related parties in the past 12 months?
+      form(action="").form-section
+        .row
+          .col-lg-12.form-group.form-section.m-t-2.m-b-0
+            .radio-input.m-b-2.yesno
+              label 
+                input(type="radio" name="transaction_with_related_parties_choice" value="1" checked=values['transaction_with_related_parties_choice'] == 1)
+                |  Yes
+              label 
+                input(type="radio" name="transaction_with_related_parties_choice" value="0" checked=values['transaction_with_related_parties_choice'] == 0)
+                |  No
+        .transaction_with_related_parties_choice.shown-yes.required(style="display:" + (values['transaction_with_related_parties_choice'] == 1 ? 'block' : 'none'))
+          |!{ templates.transaction_with_related_parties }
+
+        .row.m-t-3
+          .col-lg-12.text-md-center.text-sm-center.text-xs-center
+            button.btn.btn-primary.text-uppercase.pull-lg-right Save And Continue
+              i.fa.fa-angle-right

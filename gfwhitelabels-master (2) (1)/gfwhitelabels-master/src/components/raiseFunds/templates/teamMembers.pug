@@ -1,0 +1,59 @@
+include menu.pug
+
+- pug_html += app.breadcrumbs('Create Company', '', [ ['Home', '/'], ['Create Company', '/campaign/' + values.id + '/general_information'], ['team members', ''], ]);
+
+section.create-company-team-add.container
+  -
+    var campaignId = values.id;
+    var formcId = formc.id;
+    var noMembers = values.team_members.members.length < 1;
+  .row
+    +menu('campaign', 'team-members')
+
+    //START RIGHT BLOCK
+    .col-xl-8.col-lg-8.col-md-12
+      h2.text-uppercase.text-lg-center.text-xs-center.m-t-0.title team members
+      form.form-section
+        .row
+          div(style='display: ' + (noMembers ? 'block' : 'none')).form-group.text-lg-center.notification
+            .col-lg-12
+              .warning-block.text-lg-left
+                i.fa.fa-info-circle 
+                span.warning-text You have to add at least 1 team member to proceed.
+        if values.team_members.members.length >= 2
+          .row
+            .col-lg-12.m-b-2
+              .warning-block.text-lg-left
+                i.fa.fa-info-circle
+                span.warning-text Please feel free to drag and place your team members in the order you prefer.
+        .row
+          .col-lg-12.text-lg-center.text-md-center.text-sm-center.text-xs-center.m-b-2.add-button
+            a(href='/campaign/' + values.id + '/team-members/add/member/new')#add_team_member.btn.text-uppercase
+              i.fa.fa-plus
+              |  ADD TEAM MEMBER 
+            a(href='/campaign/' + values.id + '/team-members/add/advisor/new')#add_advisor.btn.text-uppercase 
+              i.fa.fa-plus
+              |  ADD ADVISOR
+        if values.calcProgress()['team-members'] === false && noMembers == false
+          .row.photoNotification
+            .col-lg-12
+              .warning-block.warning-team-add.text-lg-left
+                i.fa.fa-info-circle 
+                span.warning-text Please upload photo for every team member
+
+        .row.teamMembersContainer
+          each v,k in values.team_members.reorder()
+            .col-xl-4.m-t-2.itemContainer(data-index=v.index)
+              .team-add-item.text-lg-center.text-xs-center.teamMemberItem
+                a(href="/campaign/" + values.id + "/team-members/add/" + (v.title == 'Advisor' ? 'advisor' : 'member') + '/' + v.index).link-1
+                  img(src=v.photo_image_id.getUrl('Default_photo') alt=v.first_name).img-circle
+                a(href="#" style="position: absolute").link-1.delete-member.pull-right
+                  i.fa.fa-times
+                //a(href="/campaign/" + values.id + "/team-members/add/" + (v.title == 'Advisor' ? 'advisor' : 'member') + '/' + v.index).link-1.edit-team-members
+                  i.fa.fa-pencil-square-o
+                h4.name.text-uppercase.m-b-0 #{v.first_name} #{v.last_name}
+                p.small-text #{ v.title }
+
+        div(style='display: ' + (noMembers ? 'none' : 'block')).col-lg-12.pull-lg-right.p-x-0.m-t-3.text-lg-right.text-md-center.text-sm-center.text-xs-center.buttons-row
+          a(href="/campaign/" + values.id + "/specifics").btn.btn-primary.text-uppercase save and continue
+            i.fa.fa-angle-right

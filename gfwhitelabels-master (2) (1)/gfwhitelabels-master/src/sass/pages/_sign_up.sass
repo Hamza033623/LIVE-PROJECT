@@ -1,0 +1,245 @@
+.singup,
+  .sign-up-left-banner-img
+    background-image: url("img/generals/sign-up-bg.png")
+    height: 100%
+    max-width: 555px
+    width: 100%
+    background-position: center bottom
+    background-size: cover
+    background-repeat: no-repeat
+    position: absolute
+    top: 0
+    left: rem(30)
+    @media only screen and (max-width : 1200px)
+      width: 455px
+    @media only screen and (max-width : 991px)
+      width: 345px
+
+  .position-relative
+    position: relative
+    @media only screen and (max-width : 576px)
+      padding: 0
+
+  .sign-up-left-banner
+    height: 100%
+    .block-top-section
+      background-color: rgba($white, .9)
+      padding: 10px 0
+      position: relative
+      top: 20px
+      .wrap-baner-title
+        padding: 0 rem(10)
+        h1
+          display: inline-block
+          text-align: center
+          font-size: rem(34)
+          &.credit
+            font-size: rem(52)
+            color: $sign-up-credit-color
+            @media screen and (min-width : 768px) and (max-width : 991px)
+              font-size: (32)
+          @media screen and (min-width : 768px) and (max-width : 991px)
+            font-size: rem(24)
+
+      .wrap-baner
+        padding: 0 rem(25)
+        padding-bottom: rem(15)
+        h2
+          @media screen and (min-width : 768px) and (max-width : 991px)
+            font-size: rem(20)
+        hr
+          max-width: 350px
+          background-color: $black
+          margin: 20px auto
+        p
+          font-size: rem(12)
+          line-height: 16px
+          max-width: 335px
+          margin: auto
+  .sign-up-right
+    border: solid 1px $light_grey
+    @media only screen and (max-width : 576px)
+      border: none
+    .label-text
+      font-size: rem(11)
+    p
+      margin-bottom: rem(25)
+      color: $small-text
+    .social-btn
+      margin-bottom: rem(30)
+      max-width: 290px
+      margin: auto
+      @media only screen and (max-width : 360px)
+        max-width: 320px
+    #register-submit-btn
+      margin-bottom: rem(28)
+      margin-top: rem(13)
+    .or
+      margin-top: rem(25)
+      margin-bottom: 18px
+    .fields-group
+      max-width: 360px
+      width: 100%
+      .check-input
+        margin-top: 30px
+        label
+          font-size: rem(11)
+          line-height: rem(14)
+          input
+           margin-top: rem(3)
+    .first-last
+      .row
+        margin-left: 0
+        margin-right: 0
+    .bottom-line
+      background-color: $alabaster
+      line-height: 15px
+      font-size: rem(12)
+      padding-top: rem(5)
+      padding-bottom: rem(5)
+      p
+        max-width: 440px
+        line-height: 15px
+        font-size: rem(12)
+        padding-top: rem(2)
+        padding-bottom: rem(2)
+        margin-bottom: 0
+        color: $black
+        margin: auto
+  .form-section
+    .has-error
+      .help-block
+        float: left
+  .p-r-block
+    padding-right: 0
+    @media only screen and (max-width : 767px)
+      padding-right: 15px
+  .p-l-block
+    padding-left: 0
+    @media only screen and (max-width : 767px)
+      padding-left: 15px
+
+  @media only screen and (min-width : 768px)
+    .container
+      padding-left: 0
+      padding-right: 0
+    .sign-up-right
+      border-left: none
+  @media only screen and (max-width : 767px)
+    .sign-up-left-banner-img
+      display: none
+    .sign-up-left-banner
+      height: auto
+      background-image: none
+      .block-top-section
+        background-color: $sign-up-header-bgc
+        color: $white
+        top: 0px
+        .link-3
+          color: $white
+          text-decoration: underline
+          &:hover
+            color: rgba($white, .7)
+        .wrap-baner-title
+          h1
+            color: $white
+            &.credit
+              color: $white
+        .wrap-baner
+          hr
+            background-color: $white
+            margin: 20px auto
+    .sign-up-right
+      border-top: none
+      height: auto
+  @media only screen and (max-width : 375px)
+    .sign-up-left-banner
+      .block-top-section
+        .wrap-baner-title
+          h1, h1.credit
+            font-size: rem(21)
+            margin-bottom: 0
+        .wrap-baner
+          h2
+            font-size: rem(16)
+            margin-bottom: 0
+
+
+  @media only screen and (max-width : 320px)
+    .sign-up-right
+      height: auto
+    .wrap-baner
+      h1
+        font-size: rem(26)!important
+
+.login, .singup
+  .or
+    margin-top: rem(30)
+    position: relative
+    margin-bottom: rem(30)
+    span
+      position: absolute
+      text-align: center
+      left: 50%
+      top: rem(-2)
+      padding: rem(5)
+      background-color: #fff
+      transform: translate(-50%,-50%)
+      color: $small-text
+      font-size: rem(14)
+  .form-group
+    margin-bottom: 0
+    margin-top: rem(10)
+  h2
+    margin-bottom: rem(18)
+    .small-text
+      font-size: rem(14)
+      color: $small-text
+      font-family: $font-family-sans-serif
+      padding-top: rem(9)
+  .forgot
+    margin-top: rem(5)
+    margin-bottom: rem(16)
+  label
+    font-size: rem(11)
+    font-weight: 400
+    margin-bottom: 0
+    padding-top: 0
+    select 
+      height: rem(36)
+    input[type="checkbox"]
+      float: left
+    .label-text
+      display: block
+      padding-left: rem(20)
+      line-height: rem(14)
+      text-align: left
+    .p-t-6
+      padding-top: rem(6)
+  .social-btn
+    text-align: center
+    .btn
+      max-width: 290px
+      margin:
+        left: auto
+        right: auto
+.login
+  p
+    margin-bottom: rem(25)
+    color: $small-text
+  .or
+    margin-bottom: 20px
+  .modal-dialog .modal-header
+    padding-bottom: 5px
+  .modal-body
+    .or
+      margin-top: 30px!important
+  .forgot
+    margin-bottom: rem(20)
+  .bottom
+    line-height: rem(15)
+    font-size: rem(12)
+    text-align: center
+    margin-top: rem(45)
+    @media only screen and (max-width : 576px)
+      margin-top: 20px

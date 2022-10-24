@@ -1,0 +1,183 @@
+- var GENERAL = require('consts/general.json');
+
+section.slider-main
+  .heartland-tour-in-main
+    p Growthfountain.com is no longer associated with Growthfountain Capital LLC and is not currently conducting securities offerings, to register for Future Updates&nbsp;
+      a(href="/pg/heartland-tour#getnotified") click here.
+  include ../../../templates/slider
+include ../../../templates/topbanner
+
+secetion.email-subscription.subscription-campaing-list.main-subscription
+  .container
+    .row
+      .col-xs-12
+        h2.text-xs-center.font-weight-light.m-t-0 Sign up and be the first to hear about new investment opportunities
+    .row
+      .col-xl-12
+        -
+          var subscriber = require('directives/subscribe/index.js');
+          pug_html += subscriber.render({
+            containerClass: 'subscription-wrap',
+            emailClass: 'col-xs-12 p-l-0',
+            subscribeClass: 'subscription-btn',
+          });
+section.campaing-list.campaign-list-main-page
+  .container#campaignList
+    .col-lg-12
+      h2.text-uppercase.text-sm-center.text-xs-center.m-t-0 !{app.config.indexPage.campaignListTitle}
+    include ../../campaign/templates/_list
+    .col-lg-12.text-lg-center.text-md-center.text-xs-center
+      if collection && collection.count && collection.count > GENERAL.COMPANIES_ON_MAINPAGE
+        a(href="/companies").btn.btn-sm.btn-secondary.btn-see-all 
+          | See All
+          i.fa.fa-angle-right
+
+
+
+section.main-video-wrap
+  video(poster=require("images/generals/main-before-video.jpg") id="bgvid" playsinline autoplay muted loop)
+    source(src=require("staticdata/video/main_background_video.mp4") type="video/mp4")
+  .center-wrap
+    .text-wrap
+      .container
+        .col-xl-12
+          h2.text-uppercase !{app.config.indexPage.videoTitle}
+        .col-xl-12.text-video-wrap.p-x-0
+          | !{app.config.indexPage.videoText}
+    a(
+      href='#'
+      data-provider=app.config.indexPage.dataProviderVideoPopup
+      data-id=app.config.indexPage.dataVideoIdPopup
+      data-url=app.config.indexPage.videoPopupUrl
+      data-hide-page='true'
+      data-modal-class='main-video-modal'
+    ).showVideoModal.play-icon
+      i.fa.fa-play
+section.home-our-partners
+  .container-fluid
+    .col-xl-12
+      .partners-line
+        h4.title.text-uppercase GrowthFountain has worked with these Partners:
+    .item
+      a(href="http://www.callahan.com/" target="_blank")
+        img(src=require("images/partners-logo/callahan-logo.png") alt="").img-fluid.callahan
+    .item
+      a(href="https://www.jdcu.org/" target="_blank")
+        img(src=require('images/partners-logo/jdcu-logo.png') alt="").img-fluid.jdcu
+    .item
+      a(href="https://www.dcu.org/" target="_blank")
+        img(src=require('images/partners-logo/dcu-logo.png') alt="").img-fluid.dcu
+    .item
+      a(href="https://www.infinityfcu.com/" target="_blank")
+        img(src=require('images/partners-logo/infinityfcu-logo.png') alt="").img-fluid.infinity
+    .item
+      a(href="https://www.tvfcu.com/" target="_blank")
+        img(src=require('images/partners-logo/tvfcu.png') alt="").img-fluid.tvfcu
+    .row
+      .bottom-line
+section.calculator-block-click
+  include ../../../templates/calculators-block
+section.better
+  .container
+    .row
+      .col-xl-12.text-xs-center
+        h2.text-uppercase.m-t-0 You deserve a 
+          .titile-better better 
+          |  way to raise the money you need to grow.
+        h3.font-weight-light.m-t-0 Our technology stack was built to maximize your exposure and minimize your costs.
+    .row
+      .col-xl-4.better-item
+        .photo
+          img(src=require('images/generals/list-1.png'), alt="")
+        h4.title.text-uppercase List Your Fundraise
+        .text
+          p We want you to focus on what you do best: build your company. We’ll help you assess your valuation, prepare your offering docs and handle filings and all the heavy lifting.
+      .col-xl-4.better-item
+        .photo
+          img(src=require('images/generals/network1.png'), alt="")
+        h4.title.text-uppercase Activate Your Network
+        .text
+          p Think of our platform as a way to raise 150% or more of the money you can raise from your own network. Get your customer, community, friends and family to invest early and often. Once you create the momentum, our investor network can provide meaningful additional capital. 
+      .col-xl-4.better-item
+        .photo
+          img(src=require('images/generals/invest-list.png'), alt="")
+        h4.title.text-uppercase Everybody can Invest!
+        .text
+          p BRAND NEW! Everybody in the world can now invest in America’s entrepreneurs. Capture their interest with your story and use your network to get early traction – and our massive network will surely follow!
+    .row
+      .col-xl-8.offset-xl-2.bottom-wrap
+        .row
+          .col-xl-6
+            .item
+              i.fa.fa-chevron-right
+              h3.font-weight-light Time to raise money on
+                strong.font-weight-bold  your terms 
+                | and keep control
+          .col-xl-6
+            .item
+              i.fa.fa-chevron-right
+              h3.font-weight-light Minimize annoying legal fees
+        .row
+          .col-xl-6
+            .item
+              i.fa.fa-chevron-right
+              h3.font-weight-light Pitch to thousands of people from the comfort of your own home
+          .col-xl-6
+            .item
+              i.fa.fa-chevron-right
+              h3.font-weight-light Turn your customers and users into brand ambassadors and evangelists
+    .row
+      .col-xl-12
+        .powered-by
+          h4.text-uppercase equity crowdfunding
+          p.small-powered-by Powered by
+          img(src=require('images/pages/news4.png'), alt="")
+
+include ../../../templates/bottombanner
+section.main-reviews
+  .container
+    .review-title
+      h2.text-uppercase.m-b-0.text-xs-center GROWTHFOUNTAIN REVIEWS:
+      h3.font-weight-light.text-xs-center.m-t-1 a few words from our customers
+      img(src=require('images/generals/two-quotes.png'), alt="")
+    .owl-carousel.owl-theme.carousel-review
+      div.one-review
+        .review-text
+          p  We reached 163% of our funding goal on GrowthFountain, receiving over $163,000 in investor commitments for our company, The Herbal Compliance Co. GrowthFountain’s team was incredibly helpful, responsive, professional, and their systems are very user friendly. I highly recommend them to any startup looking to raise money.
+        .review-autor
+          img(src=require('images/main_page/briang.png'), alt="")
+          .review-name
+            h4.text-uppercase Brian G.
+            p from Chattanooga, TN
+      div.one-review
+        .review-text
+          p  We were convinced that we wanted to work with GrowthFountain because of the recommendation of Callahan & Associates. We saw the opportunity to further our service to the community in Chattanooga. Working with GrowthFountain plays right into us being the community financial institution, bringing people together to help other people.  It’s an absolutely wonderful opportunity for us to add another arrow to the quiver, helping entrepreneurs and their access to capital.
+        .review-autor
+          img(src=require('images/main_page/tommyn.png'), alt="")
+          .review-name
+            h4.text-uppercase Tommy Nix.
+            p Tennessee Valley Federal Credit Union, Chattanooga, TN
+      div.one-review
+        .review-text
+          p  You guys are doing a fantastic job! I have recommended GrowthFountain to my friends who want to make small investments outside of traditional stocks and bonds. All facts are clear and provided in simple terms so that anyone can take part.
+        .review-autor
+          img(src=require('images/main_page/jay.png'), alt="")
+          .review-name
+            h4.text-uppercase Jay K.
+            p from Cypress, TX
+      div.one-review
+        .review-text
+          p  GrowthFountain’s team was extremely helpful in setting up my campaign. Their low fees, customer service and ease of investing for investors led me to raise money for my company, StakeHaul on GrowthFountain.
+        .review-autor
+          img(src=require('images/main_page/jeff.png'), alt="")
+          .review-name
+            h4.text-uppercase Jeff L.
+            p from Milwaukie, WI
+      div.one-review
+        .review-text
+          p  The crowdfunding approach opens up an entirely new channel of investors, and I really like the option to choose between equity or a revenue share. GrowthFountain has a flexible approach and they coached us through the whole process.
+        .review-autor
+          img(src=require('images/main_page/gibd.png'), alt="")
+          .review-name
+            h4.text-uppercase Gib D.
+            p from Chattanooga, TN

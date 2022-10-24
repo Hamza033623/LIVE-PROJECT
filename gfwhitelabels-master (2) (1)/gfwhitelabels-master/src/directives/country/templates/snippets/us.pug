@@ -1,0 +1,10 @@
+- var zipCodeDirective = require('directives/zipcode/index.js');
+.us-row
+  | !{ zipCodeDirective(view).render().resultHtml }
+  .row
+    .col-xl-6.col-lg-6.col-md-6.us-phone
+      -
+        pug_html += app.fields.textLabel('phone', Object.assign({
+            'type': 'text',
+            'value': user.phone,
+          }, fields.phone));

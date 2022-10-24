@@ -1,0 +1,40 @@
+.other-countries-fields
+  .row
+    .col-xl-6.col-lg-6.col-md-6
+      -
+        pug_html += app.fields.nestedTextLabel(
+        'personal_information_data',
+        'city',
+        user,
+        -1, {
+          id: 'personal_information_data__city',
+        }, Object.assign({}, fields.personal_information_data.schema.city, { required: true }));
+    .col-xl-6.col-lg-6.col-md-6
+      -
+        pug_html += app.fields.nestedTextLabel(
+          'personal_information_data',
+          'state',
+          user,
+          -1, {
+          }, Object.assign({}, fields.personal_information_data.schema.state, { required: true, label: 'State/Province/ Region', placeholder: 'State/Province/Region' })
+        );
+  .row
+    .col-xl-6.col-lg-6.col-md-6
+      -
+        pug_html += app.fields.nestedTextLabel(
+          'personal_information_data',
+          'zip_code',
+          user,
+          -1, {
+          }, Object.assign({}, fields.personal_information_data.schema.zip_code, { required: true, label: 'Zip Code'})
+        );
+    .col-xl-6.col-lg-6.col-md-6
+      -
+        pug_html += app.fields.nestedTextLabel(
+          'personal_information_data',
+          'phone',
+          user,
+          -1, {
+            label: 'Phone',
+            id: 'personal_information_data__phone__0',
+          }, Object.assign({}, fields.personal_information_data.schema.phone, { required: true }));

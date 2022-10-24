@@ -1,0 +1,135 @@
+include ../../raiseFunds/templates/menu.pug
+
+| !{app.breadcrumbs('Create Form C', '', [ ['Home', '/'], ['Create Form C', '/formc/' + values.id + '/introduction'], ['Introduction', ''], ])}
+
+section.formc.introduction.create-company-media.container
+  .row
+    +menu('formc', 'introduction')
+    .col-xl-8.col-lg-8.col-md-12
+      h2.text-uppercase.text-lg-center.text-xs-center.m-t-0 introduction
+      .welcome-text
+        if app.getParams().notPaid == '1'
+          .warning-block.warning-team-add.text-lg-left.m-t-2
+            i.fa.fa-info-circle
+            span.warning-text Sorry, you have to pay to proceed
+        h3.m-t-0 Welcome!
+        p.pb10 Congratulations on taking your first step toward fundraising in a way that brings you closer to the most important people of all: your potential customers. 
+        p.pb10 As you shift from Campaign to Form C, you are now populating your legal offering document. This requires a change in tone from marketing to disclosure. In fact, this document requires 
+          strong substantial and accurate financial and business disclosure 
+          |  and is subject to review by the Securities and Exchange Commission.
+        p.pb10 
+          strong 
+            u ALWAYS
+          |  provide full, complete and non-misleading answers to all questions. Please note if any answer is materially inaccurate, incomplete or misleading, the Company, its management and principal shareholders may be liable to investors based on that information.
+        p.pb10 The purpose of the Form C is to ensure that investors receive enough disclosure to make an informed decision about your offering.
+          strong 
+            u AVOID
+          |  answering questions with marketing-type or exaggerative language, your goal is to protect your company and investors by providing adequate disclosure.
+        p You may want to have an attorney prepare this document with you since certain sections will address legal distinctions between different securities. Upon completion of your Form C, you will have an additional opportunity to review all documents with your attorney.
+        form(action="").form-section
+          .certify-checkbox
+            .form-group.required
+              label
+                input#certify(type="checkbox" name="certify" value="true" data-value-type="boolean" checked=(values['certify']))
+                | Check this box to certify that all the following statements are true:
+          .list
+            ul
+              li Organized under, and subject to, the laws of a State or territory of the United States or the District of  Columbia.
+              li Not subject to the requirement to file reports pursuant to Section 13 or Section 15(d) of the Securities Exchange Act of 1934.
+              li Not an investment company registered or required to be registered under the Investment Company Act of 1940.
+              li Not ineligible to rely on this exemption under Section 4(a)(6) of the Securities Act as a result of a disqualification specified in Rule 503(a) of Regulation Crowdfunding. (This question refers to questions around any securities related violations you might have, which you'll come to later in this Form).
+              li Has filed with the Commission and provided to investors, to the extent required, the ongoing annual reports required by Regulation Crowdfunding during the two years immediately preceding the filing of this offering statement (or for such shorter period that the issuer was required to file such reports).
+              li Not a development stage company that (a) has no specific business plan or (b) has indicated that its business plan is to engage in a merger or acquisition with an unidentified company or companies.
+          .yesno.yes-no
+            p.font-weight-bold Has the issuer or any of its predecessors previously failed to comply with the ongoing reporting requirements of Rule 202 Regulation Crowdfunding?
+              span.color-red *
+            .form-group
+              label
+                input(type="radio" name="failed_to_comply_choice" value=1 checked=values['failed_to_comply_choice'] == 1 target=".explain")
+                | Yes
+              label
+                input(type="radio" name="failed_to_comply_choice" value=0 checked=values['failed_to_comply_choice'] == 0 target=".explain")
+                | No
+
+          div(style='display:' + (values['failed_to_comply_choice']  == 1? 'block' : 'none') + ';').failed_to_comply_choice.explain.shown-yes
+            .form-group.row
+              .col-xl-12.text-xl-left
+                label If Yes, Explain
+              .col-xl-12
+                textarea(rows="3" name="failed_to_comply").form-control= values['failed_to_comply']
+          if values.is_paid != true
+            .payment-block
+              .row
+                .col-xl-12
+                  .border-bottom.m-t-3.m-b-3
+              .growthfountain-charges
+                p.m-b-1 GrowthFountain charges $#{ values.registration_fee } for Form C generation, background checks and escrow. To authorize this charge and to enter into the Listing Agreement, please electronically sign below.
+                a(href="/preview/" + app.user.company.slug + "/255?amount=0&commission=0&company_id=" + app.user.company.id + "&email=&first_name=&last_name=&country=&address=&address2=&zip_code=&city=&state=&signature=" target="_blank").link-2.openPdfPreview To review the Listing Agreement, click here
+                .form-group.row.m-t-2
+                  .col-xl-12.text-xl-left
+                    label Credit Card Number
+                  .col-xl-12
+                    input(type="text" data-stripe="number" id="card_number").form-control
+                    img(src=require('images/icons/visa_logo_6.gif'), alt="")
+                    img(src=require('images/icons/mastercard_logo_5.gif'), alt="")
+                    img(src=require('images/icons/amex_512.png'), alt="")
+                    img(src=require('images/icons/Discover-Logo.png'), alt="")
+
+              div(id="expiration-block").expiration
+                .row
+                  .col-xl-6.col-lg-6.col-md-6.expiration-form
+                    .form-group.row
+                      .col-xl-12.text-xl-left
+                        label Expiration
+                      .col-xl-12
+                        - 
+                          pug_html += app.fields.dateMonth('card_exp_month', Object.assign({
+                          'empty': { '': 'Choose' },
+                          'value': values.card_exp_month,
+                          }, fields.card_exp_month));
+                        - 
+                          pug_html += app.fields.dateYear('card_exp_date_year', Object.assign({
+                          'value': values.card_exp_date_year,
+                          'placeholder': 'YYYY',
+                          }, fields.card_exp_date_year));
+                  .col-xl-6.col-lg-6.col-md-6.cvv-code
+                    .form-group.row
+                      .col-xl-12
+                        label CVV Code
+                      .col-xl-12
+                        .input-icon
+                          div.fa.fa-question-circle.showPopover(
+                          data-content="<p class='pb10'>For Visa, MasterCard and Discover (left), the <br> 3 digits on the <u>back</u> of your card.</p> <p class='pb10'>For American Express (right) the 4 digits on the <br> <u>front</u> of your card.</p><div class='introduction-cart-pay m-r-1'><div class='introduction-cart-pay-1'></div></div> <div class='introduction-cart-pay'><div class='introduction-cart-pay-2'></div></div>")
+                        input(type="text" data-stripe="cvc" id="card_cvc" placeholder="CVV Code").form-control
+                #electronically-sign-form.electronically-sign
+                  .col-xl-10.offset-xl-1.m-t-2.investment.p-x-0
+                    .col-lg-12
+                      h3.m-t-0.text-lg-center.m-b-2 Electronically Sign
+                    .form-group.row
+                      - 
+                        pug_html += app.fields.fieldText('full_name', {
+                        class:'col-xl-6', 
+                        schema: fields.full_name, 
+                        placeholder: 'Type your name', 
+                        value: values.full_name,
+                        help_text: 'Type name (it signs on right)',
+                        })
+                      .col-xl-6
+                        .electronically
+                          span.by By:
+                          span.name
+              .row.btn-pay
+                .col-lg-12.m-t-2.text-xs-center.text-xl-right
+                  button#pay-btn.btn.btn-primary.text-uppercase Agree and Pay 
+          div(class=(values.is_paid != true ? 'collapse' : '') id="save-button-block")
+            .row
+              .col-xl-12
+                .border-bottom.m-t-2.m-b-3
+              .col-xl-12
+                .warning-block.warning-team-add.text-lg-left
+                  i.fa.fa-info-circle 
+                  span.warning-text Thank you for your payment, you can now complete your Form C.
+              .col-lg-12
+                .btn-save.text-lg-right.text-sm-center.text-xs-center.m-t-2
+                  button(type='submit').btn.btn-primary.text-uppercase.save-and-continue save and continue
+                    i.fa.fa-angle-right

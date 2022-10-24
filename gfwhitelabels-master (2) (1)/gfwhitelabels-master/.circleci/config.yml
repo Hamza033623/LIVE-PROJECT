@@ -1,0 +1,20 @@
+version: 2
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:6.10.1
+    steps:
+      - checkout
+      - run:
+          name: submodules
+          command: 'git submodule update --init'
+      - run:
+          name: install
+          command: |
+            npm install && cd staticdata && git checkout `echo $CIRCLE_BRANCH | sed -e 's/ostap\|chagin/alpha/g'` && git pull && cd .. && ls -la 
+      - run:
+          name: deploy
+          command: |
+            NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p --config ./webpack.config.js && sudo apt-get install awscli && ls -la dist && ./deploy.sh
+

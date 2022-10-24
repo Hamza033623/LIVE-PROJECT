@@ -1,0 +1,291 @@
+.create-company,.create-company-general
+  .title
+    margin-bottom: rem(40)
+  .custom-link-company,
+  .custom-ga-fields // page /company/create
+    .prefix_input_prefix
+      position: relative
+      float: left
+      z-index: 2
+      color: #828282
+      -webkit-user-select: none
+      -moz-user-select: none
+      -ms-user-select: none
+      user-select: none
+      border-right: none
+      background-color: $alabaster
+      color: $black
+      font-size: rem(14)
+      width: auto
+      .form-control
+        background-color: transparent
+        cursor: default
+        @media only screen and (min-width : 481px)
+          border-right: none
+    .prefix_input_field
+      overflow: hidden
+      white-space: nowrap
+  .custom-link-company
+    .prefix_input_prefix
+      width: 50%
+  .form-section
+    textarea
+      min-height: rem(172)
+      margin-bottom: 0
+    .custom-select
+      width: 100%
+  .form-section
+    .date-input
+      input
+        min-width: rem(61)
+  .form-group-m-b-0
+    .form-group
+      margin-bottom: 0
+.col-l-65
+  input
+    min-width: rem(185)
+.create-company
+  .sity-state-error
+    .help-block
+      left: 15px
+
+  .custom-ga-fields
+    .prefix_input_prefix
+      width: 15%
+      @media screen and (min-width : 992px) and (max-width : 1200px)
+        width: 20%
+    .prefix_input_field
+      width: 85%
+      @media screen and (min-width : 992px) and (max-width : 1200px)
+        width: 80%
+@media only screen and (max-width : 1200px)
+  .create_compaign
+    margin-top: 50px
+  .create-company
+    .custom-link-company
+      .prefix_input_prefix
+        width: 50%
+      .prefix_input_field
+        width: 50%
+
+@media only screen and (max-width : 992px)
+  .create-company
+    .form-section
+      textarea
+        max-width: 100%
+    .date-input
+      .col-lg-6
+        padding-right: 0
+        padding-left: 0
+        input
+          margin-bottom: rem(15)
+    .custom-ga-fields
+      .prefix_input_field
+        width: auto
+      .prefix_input_prefix
+        width: 52px
+@media only screen and (max-width : 480px)
+  .create-company
+    .custom-link-company
+      .prefix_input_prefix
+        width: 100%
+      .prefix_input_field
+        width: 100%
+        
+.create-company-team-add
+  .title
+    margin-bottom: rem(45)
+  .warning-team-add
+    font-size: rem(14)
+  .team-add-item
+    img
+      width: rem(180)
+      height: rem(180)
+      margin-top: rem(10)
+    .name
+      margin-top: rem(18)
+      line-height: rem(15)
+    .small-text
+      color: $small-text
+      font-size: rem(12)
+      line-height: rem(18)
+  .edit-team-members
+    position: absolute
+    right: 5px
+    top: 1px
+    @media only screen and (max-width : 375px)
+      right: 0
+  .add-button
+    @media only screen and (min-width : 486px)
+      .btn
+        &:first-child
+          margin-right: rem(30)
+    @media only screen and (max-width : 457px)
+      .btn
+        &:first-child
+          margin-right: 0
+          margin-bottom: 25px
+  .teamMembersContainer
+    .teamMemberItem,
+    a
+      &:hover
+        cursor: pointer
+    .sortable-drag
+      opacity: 1
+      height: 100%
+      padding: 20px
+      .team-add-item
+        box-shadow: 0px 0px 26px 1px $box-shadow-drag
+        border-radius: 3px
+        background-color: #FFF
+    
+
+.create-perks
+  .title
+    margin-bottom: rem(45)
+  .perks-textarea
+    textarea
+      min-height: 80px
+.team-members
+  .img-photo
+    width: 155px
+    height: 155px
+    margin: auto
+@media only screen and (min-width : 992px)
+  .add-link-additional-video
+    position: relative
+    top: -20px
+@media only screen and (max-width : 1200px)
+  .create-company-media
+    .delete-section-container.media-delete
+      top: 0!important
+@media only screen and (max-width : 992px)
+  .create-company-media
+    h3
+      text-align: center
+    .fa-file-image-o
+      margin-bottom: rem(25)
+    .pull-xs-none
+      float: none!important
+    .form-section
+      img
+        margin: auto
+        text-align: center
+    .p-sm-0
+      padding-right: 0!important
+      padding-left: 0!important
+
+  .team-members
+    .custom-select
+      min-width: 100%!important
+      margin-bottom: rem(25)
+    input
+      max-width: 100%!important
+.campaign-specifics
+  .title
+    margin-bottom: rem(45)
+  .hydrid-toggle-block
+    label
+      position: relative
+    .icon-popover-specifics
+      position: absolute
+      right: 0
+      width: 50px
+      height: 50px
+      text-align: center
+      top: 0
+      i
+        font-size: rem(18)
+        color: $small-text
+  .type-security-wrap
+    position: relative
+    .icon-popover-specifics
+      float: right
+      margin-left: 5px
+      display: inline-block
+      i
+        font-size: rem(18)
+        color: $small-text
+
+@media only screen and (max-width : 992px)
+  .campaign-specifics
+    .m-l-30
+      margin-left: 0
+      padding-left: 0
+  .create-company-media
+    .add-link-additional-video
+      position: relative
+      top: 25px
+      margin-bottom: rem(50)
+@media only screen and (max-width : 340px)
+  .team-members
+    .btn.m-r-3
+      margin-right: 10px!important  
+.create-company-media
+  .galleryDropzone
+    margin-bottom: 0!important
+  .additional-video-block
+    margin-bottom: rem(5)
+    .one-video
+      .delete-section-container
+        margin-top: rem(20)
+      &:first-child
+        .delete-section-container
+          margin-top: 0
+  .title
+    margin-bottom: rem(45)
+
+  .main-video-block, .additional-video-block
+    .img-media
+      height: 160px!important
+      overflow: hidden
+      img
+        height: 160px
+      @media only screen and (max-width : 991px)
+        height: auto!important
+        img
+          height: auto!important
+      @media only screen and (max-width : 575px)
+        img
+          height: 240px!important
+      img
+        width: 100%
+  .p-dropzone.header-media
+    i
+      margin-bottom: 0
+      padding-bottom: 0
+  .thumbnail-picture
+    .p-dropzone
+      margin-top: rem(40)
+      @media screen and (min-width : 768px) and (max-width : 991px)
+        top: 30px!important
+      @media screen and (min-width : 992px) and (max-width : 1199px)
+        top: 10px!important
+      @media only screen and (max-width : 544px)
+        margin-bottom: 0px!important
+.team-members
+  .imageDropzone
+    .bgc-wrap
+      background-color: $alabaster
+      width: 100%
+      height: 100%
+      position: relative
+      z-index: -1
+      text-align: center
+.create-company-media
+  .dropzone__gallery_group_id
+    text-align: center
+  .imageErrorMsg
+    text-align: left
+  .all-gallery
+    .sortable-drag
+      opacity: 1
+      height: 100%
+      padding-top: 5px
+      padding-bottom: 5px
+      img
+        box-shadow: 0px 0px 7px 2px $box-shadow-drag
+        border-radius: 3px
+        background-color: #FFF
+      .delete-image-container
+        top: 5px

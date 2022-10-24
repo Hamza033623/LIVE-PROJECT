@@ -1,0 +1,18 @@
+- document.title = 'Reset Password ' + app.config.siteTitle;
+- document.head.querySelector('meta[name="description"]').content = 'Reset your GrowthFountain password';
+
+- pug_html += app.breadcrumbs('Reset Password', '', [ ['Home', '/'], ['Reset Password', ''], ]);
+
+section.reset
+  .container
+    .col-lg-12
+      h2.text-uppercase.text-xs-center.m-t-0 Fill out the field below
+
+    .col-lg-4.offset-lg-4
+      form(data-method="PUT").form-section.login-form
+        .col-lg-12.p-xs-0
+          input(type="hidden" name="domain" value=window.location.host)#domain.form-control
+          - pug_html += fields.email.render();
+        .col-lg-12
+          .row.text-xs-center
+            button(type="submit").btn.btn-primary.text-uppercase Reset

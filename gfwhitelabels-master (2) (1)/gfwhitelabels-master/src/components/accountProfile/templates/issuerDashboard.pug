@@ -1,0 +1,226 @@
+| !{ app.breadcrumbs('issuer dashboard', '', [ ['Home', '/'], ['issuer dashboard', ''],])}
+-
+  var formcLinks = require('../../campaign/helpers.js').formcLinks
+  var moment = require('moment');
+  var socialDirective = require('directives/social/index.js');
+  var CampaignInfoProvider = require('directives/social/CampaignInfoProvider.js');
+  var STATUSES = require('consts/raisecapital/companyStatuses.json').STATUS;
+  var infoProvider = new CampaignInfoProvider(this.company);
+  var directiveKey = 'issuerDashboard';
+section.issuer-dashbord-top
+  .container
+    .row
+      .col-xl-4.col-lg-4.col-md-12.text-xs-center.text-sm-center.text-md-center.text-lg-left.text-xl-left
+        .img_under_text
+          img(src=(campaign.list_image_image_id.getUrl() || require('images/default/350x282.png')) alt="")
+          h2.text-uppercase.dosis.m-t-0 #{company.name}
+          
+          if campaign.expired
+            .timer_day
+              .text-xs-center
+                p #{ moment(campaign.expiration_date).format('MM.DD.YYYY') }
+                p End Date
+          else if company.is_approved == STATUSES.VERIFIED
+            .timer_day
+              | #{campaign.daysLeftText()}
+        if !campaign.expired && company.is_approved == STATUSES.VERIFIED
+          .share-block.d-inline-block.share
+            | !{ socialDirective.render(directiveKey, infoProvider) }
+      .col-xl-2.col-lg-2.col-md-3.col-sm-6.col-xs-6
+        .dashboard-stat
+          .visual
+            i.fa.fa-bar-chart
+          .details
+            .number
+              span $
+              span(
+                data-counter="counterup"
+                class="count-num"
+                data-value=campaign.amount_raised) #{ campaign.amount_raised }
+            .desc Amount Raised
+
+      .col-xl-2.col-lg-2.col-md-3.col-sm-6.col-xs-6
+        .dashboard-stat.dashboard-stat-v2.grey
+          .visual
+            i.fa.fa-briefcase
+          .details
+            .number
+              span(
+                data-counter="counterup"
+                class="count-num"
+                data-value=company.number_of_investors) #{ company.number_of_investors }
+            .desc Number of Investments
+
+      .col-xl-2.col-lg-2.col-md-3.col-sm-6.col-xs-6
+        .dashboard-stat.dashboard-stat-v2.grey
+          .visual
+            i.fa.fa-users
+          .details
+            .number
+              span(
+                data-counter="counterup"
+                class="count-num"
+                data-value=0) #{ company.total_views }
+            .desc Page Views
+
+      .col-xl-2.col-lg-2.col-md-3.col-sm-6.col-xs-6
+        .dashboard-stat.dashboard-stat-v2.grey
+          .visual
+            i.fa.fa-comments
+          .details
+            .number
+              span(
+                data-counter="counterup"
+                data-value=0
+              ).interactions-count 0
+            .desc New Interactions
+      if company.is_approved == STATUSES.VERIFIED
+        .col-xl-7.col-lg-7.col-md-10.col-sm-10.p-r-0.col-xs-10.hidden-xs-down
+          .tpl-progress
+            -
+              var daysPassedPercents = campaign.daysPassedPercentage(company.approved_date);
+            progress(
+              value=daysPassedPercents
+              max="100").progress.big_prog #{ daysPassedPercents }%
+            span(
+              style="left:" + daysPassedPercents + "%").circle_progress
+              i.fa.fa-circle-o
+            div(style="left:" +  (daysPassedPercents) + "%").text_position
+              .text-wrap
+                - var now = new Date();
+                .font-weight-bold
+                  if campaign.expired
+                    | #{ moment(campaign.expiration_date).format('DD MMMM') }
+                  else
+                    | #{now.toLocaleString('en-US', { month: "short" })} #{ now.getDate() }
+                | #{ '$' + (campaign.amount_raised || 0).toLocaleString('en-US') } Raised
+                //br
+                //| #{ app.helpers.format.formatAmount(campaign.amount_commited) } Approved
+                //br
+                //| Chances: #{ Math.round(percentage_raised / (campaign.minimum_raise  / campaign.amount_commited) * 100) }%
+          .progress_description
+            .pull-left
+              p #{ moment(company.approved_date).format('MM/DD/YYYY') }
+              span Begining of campaign
+            .pull-right.text-lg-right
+              p #{ moment(campaign.expiration_date).format('MM/DD/YYYY') }
+              span End of campaign
+            .clearfix
+        .col-xl-1.col-lg-1.col-md-2.col-sm-2.col-xs-2.hidden-xs-down
+          .right_fixed_text.text-lg-center
+            b #{ app.helpers.format.formatAmount(campaign.minimum_raise || campaign.maximum_raise)}
+            span Goal
+      .col-xl-8.col-lg-8.col-md-12.text-xs-center
+        if company.is_approved != STATUSES.VERIFIED
+          a(href="/" + company.slug).btn-sm.btn.btn-secondary.text-uppercase preview campaign
+            i(aria-hidden="true").fa.fa-angle-right
+        if !campaign.expired && company.is_approved == STATUSES.VERIFIED
+          a(href="/" + company.slug).btn-sm.btn.btn-secondary.text-uppercase view Campaign
+            i(aria-hidden="true").fa.fa-angle-right
+        
+    
+section.issuer-dashboard-tabs.m-t-3
+  .container
+    .col-xl-12
+      ul(role="tablist").nav.standart-nav-tabs.row
+        li.nav-item
+          a.nav-link.text-uppercase.active#documents-tab(
+            data-toggle="tab"
+            href="#documents"
+            role="tab"
+            aria-controls="documents"
+            aria-expanded="true"
+          ) 
+            h4.text-uppercase documents
+        li.nav-item
+          a.nav-link.text-uppercase#investors-tab(
+            data-toggle="tab"
+            href="#investors"
+            role="tab"
+            aria-controls="investors"
+            aria-expanded="false"
+          ) 
+            h4.text-uppercase investors
+        li.nav-item
+          a.nav-link.text-uppercase#investorq-tab(
+            data-toggle="tab"
+            href="#investorq"
+            role="tab"
+            aria-controls="investorq"
+            aria-expanded="false"
+          ) 
+            h4.text-uppercase investor Q&A
+        li.nav-item
+          a.nav-link.text-uppercase#widget-gf-tab(
+            data-toggle="tab"
+            href="#widget-gf"
+            role="tab"
+            aria-controls="widget-gf"
+            aria-expanded="false"
+          ) 
+            h4.text-uppercase invest now
+            .clearfix
+        li.nav-item
+          a.nav-link.text-uppercase#material-change-tab(
+            data-toggle="tab"
+            href="#material-change"
+            role="tab"
+            aria-controls="material-change"
+            aria-expanded="false"
+          ) 
+            h4.text-uppercase Material change
+            .clearfix
+        
+      .row
+        .tab-content
+          .tab-pane.fade.active.in#documents(
+            role="tabpanel"
+            aria-labelledby="documents-tab"
+            aria-expanded="true"
+          )
+            include snippets/issuerDocuments.pug
+          .tab-pane.fade#investors(
+            role="tabpanel"
+            aria-labelledby="investors-tab"
+            aria-expanded="true"
+          )
+            include snippets/issuerInvestors.pug
+          .tab-pane.fade#investorq(
+            role="tabpanel"
+            aria-labelledby="investorq-tab"
+            aria-expanded="true"
+          )
+            include snippets/issuerComments.pug
+          .tab-pane.fade#widget-gf(
+            role="tabpanel"
+            aria-labelledby="widget-gf-tab"
+            aria-expanded="true"
+          )
+            div#widget
+              
+          .tab-pane.fade#material-change(
+            role="tabpanel"
+            aria-labelledby="material-change-tab"
+            aria-expanded="true"
+          )
+            include snippets/issuerMaterial.pug
+          
+
+
+
+//section.danger-zone-dashboard
+    .row
+      .col-lg-12
+        .border-bottom.m-t-3.m-b-3
+    .col-lg-12
+      .row
+        h2.dosis.text-uppercase.m-t-0 material change?
+    .row
+      .col-lg-12
+        p Do you have new information that a reasonable investor would consider important in deciding whether or not to purchase your securities?  If so, click here to amend your offering.
+    .row
+      .col-lg-12.m-t-1
+        if campaign.expired
+          a(href="#").btn.danger-cancel.text-uppercase.disabled Material change
+        else
+          a(href="#").btn.danger-cancel.text-uppercase.cancel-campaign Material change

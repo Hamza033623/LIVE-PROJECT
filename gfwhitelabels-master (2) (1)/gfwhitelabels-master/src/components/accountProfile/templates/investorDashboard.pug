@@ -1,0 +1,71 @@
+
+-
+  pug_html += app.breadcrumbs('investor dashboard', '', [ ['Home', '/'], ['investor dashboard', ''],]);
+  pug_html += snippets.creditSection();
+
+section.investor-dashboard
+  .container
+    .col-xl-12.p-x-0
+      h2.text-uppercase.m-t-0 Your investments
+    .col-lg-12
+      if (!investments && !investments.length)
+        div(role="alert").alert.alert-warning
+          strong You have not invested yet
+      else
+        ul(role="tablist").nav.standart-nav-tabs.row
+          li.nav-item
+            a.nav-link.text-uppercase.active#active-tab(
+              data-toggle="tab"
+              href="#active"
+              role="tab"
+              aria-controls="active"
+              aria-expanded="true"
+            ) active
+          li.nav-item
+            a.nav-link.text-uppercase#historical-tab(
+              data-toggle="tab"
+              href="#historical"
+              role="tab"
+              aria-controls="historical"
+              aria-expanded="false"
+            ) Historical
+              .clearfix
+
+        .row
+          .tab-content
+            .tab-pane.fade.active.in#active(
+              role="tabpanel"
+              aria-labelledby="active-tab"
+              aria-expanded="true"
+            )
+              .active-investor-dashboard.investor_table
+                - var hasActiveInvestments = false;
+                each i in investments
+                  if i.active
+                    - hasActiveInvestments = true;
+                    - i.fields = i.schema;
+                    | !{ snippets.investment(i) }
+
+                if !hasActiveInvestments
+                  | !{ snippets.noInvestments() }
+
+            .tab-pane.fade#historical(
+              role="tabpanel"
+              aria-labelledby="historical-tab"
+              aria-expanded="false"
+            )
+              .active-investor-dashboard.investor_table
+                - var hasHistoricalInvestments = false;
+                each i in investments
+                  if i.historical
+                    - hasHistoricalInvestments = true;
+                    - i.fields = i.schema;
+                    | !{ snippets.investment(i) }
+
+                if !hasHistoricalInvestments
+                  .row
+                    .col-lg-12
+                      .warning-block.m-b-0
+                        i.fa.fa-info-circle
+                        span.warning-text
+                          | You have no historical investments

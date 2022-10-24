@@ -1,0 +1,114 @@
+kind: pipeline
+name: gf-site
+steps:
+
+- name: submodules
+  image: alpine/git
+  environment:
+    SSH_KEY:
+      from_secret: SSH_KEY
+  commands:
+    - mkdir /root/.ssh && echo "$SSH_KEY" > /root/.ssh/id_rsa && chmod 0600 /root/.ssh/id_rsa
+    - ssh-keyscan -H github.com >> /root/.ssh/known_hosts
+    - git submodule update --init
+
+- name: build
+  image: node:6
+  commands:
+  - wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb && dpkg -i /tmp/libpng12.deb && rm /tmp/libpng12.deb
+  - npm install
+  - |
+    branch=${DRONE_COMMIT_BRANCH}
+    if [ "$${branch##alpha*}" != $branch ]; then
+      . ./.env.dev
+    else
+      . ./.env.master
+    fi
+    NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p --config ./webpack.config.js && ls -la dist
+  - |
+    mkdir -p dist/js/widget
+    cp dist/index.html dist/error.html
+    cp staticdata/img/logo.png dist/staticdata/img/logo.png
+    cp staticdata/img/fade-in-logo.png dist/staticdata/img/fade-in-logo.png
+    mkdir dist/staticdata/img/email
+    cp staticdata/img/email/header-email.png dist/staticdata/img/email/header-email.png
+    cp staticdata/img/logo-black.png dist/staticdata/img/logo-black.png
+    cp staticdata/img/generals/gbi-widget.png dist/staticdata/img/generals/gbi-widget.png
+    cp src/js/widget/widget-gfv2.js dist/js/widget/widget-gfv2.js
+    cp src/js/widget/widget-gf.css dist/js/widget/widget-gf.css
+
+- name: deploy
+  image: plugins/s3-sync:1
+  settings:
+    bucket: growthfountain-${DRONE_COMMIT_BRANCH}
+    access_key:
+      from_secret: AWS_ACCESS_KEY
+    secret_key:
+      from_secret: AWS_SECRET_KEY
+    region: us-east-1
+    source: dist
+    delete: false
+    acl:
+      "*": public-read
+    content_type:
+      ".svg": image/svg+xml
+    cache_control: 
+      "*.html": "no-cache"
+      "*.js": "public, max-age: 6048000"
+      "*.css": "public, max-age: 6048000"
+      "*.png": "public, max-age: 6048000"
+      "*.jpg": "public, max-age: 6048000"
+      "*.mp4": "public, max-age: 6048000"
+      "*.mp3": "public, max-age: 6048000"
+
+- name: deploy-js
+  image: plugins/s3-sync:1
+  settings:
+    bucket: growthfountain-${DRONE_COMMIT_BRANCH}
+    access_key:
+      from_secret: AWS_ACCESS_KEY
+    secret_key:
+      from_secret: AWS_SECRET_KEY
+    region: us-east-1
+    source: src/js
+    target: /js
+    delete: false
+    acl:
+      "*": public-read
+    cache_control: 
+      "*": "public, max-age: 6048000"
+
+- name: notify-slack
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: slackwebhook
+    channel: _dev_growthfountain
+    username: drone.io-bot
+    icon_url: https://xebialabs.com/wp-content/uploads/2018/10/droneio-1.jpg
+    template: >
+     {{#if build.pull }}
+        *{{#success build.status}}✔{{ else }}✘{{/success}} <{{ build.link }}|{{ uppercasefirst build.status }}>*: <https://github.com/{{ repo.owner }}/{{ repo.name }}/pull/{{ build.pull }}|Pull Request #{{ build.pull }}>
+     {{else}}
+        *{{#success build.status}}✔{{ else }}✘{{/success}} <{{ build.link }}|{{ uppercasefirst build.status }}: Build #{{ build.number }}>*
+     {{/if}}
+
+     {{ build.author }} -> <https://github.com/{{ repo.owner }}/{{ repo.name }}/commit/{{ build.commit }}|{{ truncate build.commit 8 }}> -> <https://github.com/{{ repo.owner }}/{{ repo.name }}/commits/{{ build.branch }}|{{ repo.name }}/{{ build.branch }}>: _"${DRONE_COMMIT_MESSAGE}"_
+  when:
+    status: [ success, failure ]
+
+trigger:
+  event:
+  - push
+
+volumes:
+- name: docker_sock
+  host:
+    path: /var/run/docker.sock
+- name: build
+  host:
+    path: /storage/${DRONE_COMMIT_BRANCH}/build-site
+- name: build_dest
+  host:
+    path: /storage/${DRONE_COMMIT_BRANCH}/site
+

@@ -1,0 +1,151 @@
+- 'use strict';
+
+- document.title = 'Current Investment Offerings on GrowthFountain';
+- document.head.querySelector('meta[name="description"]').content = 'Explore investment opportunities on GrowthFountain. Start investing today with as little as $100.';
+
+mixin paginator(currentPage, limit, totalCount)
+  if limit < totalCount
+    -
+      currentPage = currentPage || 1;
+      var totalPages = Math.ceil(totalCount / limit);
+      var pages = [];
+      if (totalPages <= 3) {
+        for (var i = 1; i <= 3; i += 1) {
+          if (i <= totalPages) {
+            pages.push(i);
+          }
+        }
+      } else {
+        if (currentPage == totalPages) {
+          if (currentPage - 2 > 1) {
+            pages.push(currentPage - 2);
+          }
+          if (currentPage - 1 > 1) {
+            pages.push(currentPage - 1);
+          }
+          pages.push(currentPage);
+          } else if (currentPage == 1) {
+            pages.push(currentPage);
+          if (currentPage + 1 < totalPages) {
+            pages.push(currentPage + 1);
+          }
+          if (currentPage + 2 < totalPages) {
+            pages.push(currentPage + 2);
+          }
+        } else {
+          pages.push(currentPage - 1);
+          pages.push(currentPage);
+          pages.push(currentPage + 1);
+        }
+      }
+
+      var orderBy = app.getParams().orderby ? '&orderby=' + app.getParams().orderby : '';
+      var urlPrefix = '/companies?page=';
+    section.pagination(style="display:" + (totalCount <= limit ? "none" : "block") + ";")
+      .container
+        .row
+          .col-lg-12
+            nav
+              ul.pagination.pagination-sm
+                if currentPage - 1 > 1
+                  li.page-item
+                    a(href=(urlPrefix + (currentPage - 1)) + orderBy).page-link
+                      span(aria-hidden="true")
+                        i.fa.fa-angle-left
+                      span.sr-only Prev
+
+                each page in pages
+                  -
+                    var itemClass = page == currentPage ? 'active' : '';
+                    itemClass += ' page-item';
+                  li(class=itemClass)
+                    a(href=(urlPrefix + page + orderBy)).page-link= page
+
+                if currentPage + 1 < totalPages
+                  a(href=(urlPrefix + (currentPage + 1) + orderBy) aria-label="Next").page-link
+                    span(aria-hidden="true")
+                      i.fa.fa-angle-right
+                    span.sr-only Next
+
+section.small-section.filter.p-b-0(style="display: none")
+  form(
+      action="/campaigns/" 
+      method="get" 
+      role="form")
+    //.container
+      .row
+        .col-lg-3
+          .one_drop
+            select(multiple="true" title="INDUSTRY").form-control.selectpicker
+              option Advertising & Marketing
+              option Arts, Fashion, & Media
+              option Business to Business
+              option Cleantech
+              option Construction & Manufacturing
+              option Consumer Products
+              option Energy/Transport
+
+        .col-lg-3
+          .one_drop
+            select(multiple="true" title="STAGE").form-control.selectpicker
+              option Pre-seed
+              option Seed
+              option Bridge to Series A
+              option Series A
+              option Bridge to Series B
+              option Series B
+
+        .col-lg-3
+          .one_drop
+            select(multiple="true" title="LOCATION").form-control.selectpicker
+              option Locations
+              option Los Angeles, CA
+              option San Francisco, CA
+              option New York, NY
+              option Las Vegas, NV
+
+        .col-lg-3
+          .one_drop
+            select(multiple="true" title="DEAL TYPE").form-control.selectpicker
+              option Common Equity
+              option Revenue Share
+
+      .create-alert-block
+        .row
+          .col-sm-6.col-lg-9.col-xl-10.col-xs-12.text-sm-left.text-xs-center
+            a(href="#").pull-xl-right.btn.btn-sm.mr30.text-uppercase.auth-pop create alert
+
+          .col-sm-6.col-lg-3.col-xl-2.col-xs-12.text-xs-center
+            - var criterion = {name: 'Name', amount_raised: 'Amount Raised', expiration_date: 'Expiration Date'};
+            select.orderby.custom-select
+              option(value="0") Order by
+              each v, k in criterion
+                if k == app.getParams().orderby
+                  option(value=k selected)= v
+                else
+                  option(value=k)= v
+
+secetion.email-subscription.subscription-campaing-list
+  .container
+    .row
+      .col-xs-12
+        h1.text-xs-center.text-uppercase.m-t-85.m-b-3 Current Investment Opportunities
+        h2.text-xs-center.font-weight-light.m-t-0 Sign up and be the first to hear about new investment opportunities
+    .row
+      .col-xl-12
+        -
+          var subscriber = require('directives/subscribe/index.js');
+          pug_html += subscriber.render({
+            containerClass: 'subscription-wrap',
+            emailClass: 'col-xs-12 p-l-0',
+            subscribeClass: 'subscription-btn'
+          });
+
+section.campaing-list
+  .container#campaignList
+    include _list.pug
+-
+  var currentPage = Number(app.getParams().page) || 1;
+  var GENERAL = require('consts/general.json');
+
++paginator(currentPage, GENERAL.COMPANIES_PER_PAGE, collection.count)

@@ -1,0 +1,56 @@
+mixin row(value, index)
+  -
+    value = value || {};
+    var isFee = value.title && value.title.replace(/[.\(\)\s]/g, '_').toLowerCase() === 'commissions_and_broker_expenses';
+
+  tr(class="border-b-t-none p-t-b-5 addSectionBlock " + name data-index=index)
+    td.border-t-n.d-block.input-w-80
+      .d-inline-block.pull-left.p-r-1
+      input(type="text" value=value.title name="less_offering_express[" + index + "][title]").input-border-bottom.form-control.font-size-12.pull-left
+      if !isFee
+        .d-inline-block.pull-right
+          .delete-section-container
+            a(href="#" data-index=index data-section=name).delete-sectionnew
+              i.fa.fa-times
+    td.border-b-t-none.w-25.font-size-12
+      .form-section
+        input(
+          type="money"
+          data-value-type="money"
+          value=app.helpers.format.formatPrice(value.min || 0)
+          name="less_offering_express[" + index + "][min]"
+          readonly=isFee
+        ).input-border-bottom.form-control.text-xs-center.min-expense
+    td.border-b-t-none.w-25.font-size-12
+      .form-section
+        input(
+          type="money"
+          data-value-type="money"
+          value=app.helpers.format.formatPrice(value.max || 0)
+          name="less_offering_express[" + index + "][max]"
+          readonly=isFee
+        ).input-border-bottom.form-control.text-xs-center.max-expense
+
+
+mixin run()
+  if first_run
+    tbody(class=name + '_container')
+      tr
+        td.border-t-n.p-l-r-20
+          #less_offering_express.pull-left.font-weight-bold Less: Offering Expenses
+          .pull-right
+            a(href="#" data-section=name data-comp="formc" data-template="less_offering_express").link-2.add-sectionnew
+              i.fa.fa-plus
+              |  Add Another
+        td.border-b-t-none
+        td.border-b-t-none
+      if values == null || values.length == 0
+        +row({}, 0)
+      else
+        each value, index in values
+          if value
+            +row(value, index)
+  else
+    +row({}, index)
+
++run()

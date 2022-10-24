@@ -1,0 +1,25 @@
+- document.title = 'Confirmation ' + app.config.siteTitle;
+- document.head.querySelector('meta[name="description"]').content = 'Confirmation';
+- pug_html += app.breadcrumbs('Confirmation', '', []);
+
+
+form(data-method="" action="").container
+  input(type="hidden" name="domain" value=window.location.host)
+  input(type="hidden" name="activation_code" value=code)
+  .row
+    .col-lg-12
+      h2.text-xs-center.m-b-1.font-weight-light.m-t-0
+        .icon-in-circle.m-r-1.d-inline-block.align-middle
+          i(aria-hidden="true").fa.fa-smile-o
+        | Welcome to #{company_name} on GrowthFountain!
+  .row
+    .col-lg-10.offset-lg-1.mb50.mt50
+      hr.m-t-0.m-b-0
+  
+  .row
+    .col-lg-8.offset-lg-2.text-xs-center
+      span #{company_name} marks you as a member of her team as #{title}. Do you confirm that you belong to #{company_name} on the #{title} title?
+
+      .info-btn-block.pt50
+        a(href="#").btn.btn-cancel.btn-secondary.m-r-1 cancel
+        a(href="#" data-method="PUT").btn.btn-confirm.btn-primary confirm

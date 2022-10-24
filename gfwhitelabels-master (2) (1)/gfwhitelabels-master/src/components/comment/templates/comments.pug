@@ -1,0 +1,11 @@
+.container.p-x-0
+  if attr.allowQuestion
+    | !{ snippets.add({ attr: attr }) }
+  -
+    var cssClass = 'comments col-xl-8 p-xs-0 ' + (attr.cssClass || '');
+
+  div(class=cssClass).comments
+      -
+        var level = 0;
+      each c in comments
+        | !{ snippets.comment({ comment: c , snippets: snippets, attr: attr , level: level }) }

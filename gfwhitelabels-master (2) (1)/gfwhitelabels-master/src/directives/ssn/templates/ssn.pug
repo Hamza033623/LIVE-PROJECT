@@ -1,0 +1,22 @@
+p.m-b-1 In order to pay you any dividends or revenue share, regulations require GrowthFountain to collect your Taxpayer Identification Number.  Don’t worry we keep this information safe, secure and encrypted on a separate server.
+.row
+  .col-xl-6
+    -
+      pug_html += app.fields.textLabel('ssn', Object.assign({
+          'placeholder': 'Social Security #',
+          'label': 'Social Security Number (SSN) or Tax ID (ITIN/EIN)',
+          'value': user.ssn
+        }, fields.ssn));
+  .col-xl-6
+    -
+      pug_html += app.fields.textLabel('ssn_re', Object.assign({
+        'label': 'Re-enter SSN',
+        'value': user.ssn
+        }, fields.ssn_re))
+
+.popover-content-ssn
+  i.fa.fa-info-circle
+  span Why do we need this? I know it seems terribly invasive but we are required to obtain your social security number for two reasons,
+  p 1) regulators require we comply with know your customer and anti-money laundering rules and;
+  p 2) companies will need to provide you with tax information based on your investment.
+  p Don’t worry, we’re obsessive about your privacy.

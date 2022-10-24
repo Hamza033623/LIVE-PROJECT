@@ -1,0 +1,104 @@
+- var zipCodeDirective = require('directives/zipcode/index.js');
+include menu.pug
+
+- 
+  var imageDropzone = require('directives/setdropzone/image.js'); 
+  pug_html += app.breadcrumbs('Create Campaign', '', [ ['Home', '/'], ['Create campaign', '/campaign/' + campaign.id + '/general_information'], ['team member (' + (type == 'advisor' ? 'advisor' : 'team member') + ')', ''],]);
+
+
+section.team-members.container.m-b-85
+  - var campaignId = campaign.id;
+  - var formcId = formc.id;
+  - var values = campaign;
+  .row
+    +menu('campaign', 'team-members')
+
+    //START RIGHT BLOCK
+    .col-xl-8.col-lg-8.col-md-12
+      h2.text-uppercase.text-lg-center.text-xs-center.m-t-0.m-b-3 #{type == 'advisor' ? 'advisor' : 'team member'}
+      form.form-section
+        input(type="hidden" name="order" value="100" data-value-type="integer")
+        .row
+          .col-xl-6.col-lg-6.col-md-6
+            -
+              pug_html += app.fields.textLabel('first_name', {
+              schema: fields.first_name, 
+              value: model.first_name, 
+              label: 'First Name',})
+          .col-xl-6.col-lg-6.col-md-6
+            -
+              pug_html += app.fields.textLabel('last_name', {
+              schema: fields.last_name, 
+              value: model.last_name, 
+              label: 'Last Name',})
+        .row
+          .col-xl-6.col-lg-6.col-md-6
+            -
+              pug_html += app.fields.textLabel('email', {
+              schema: fields.email, 
+              value: model.email, 
+              label: 'Email',})
+          
+          .col-xl-6.col-lg-6.col-md-6
+            if type == 'advisor'
+              -
+                pug_html += app.fields.textLabel('title', {
+                schema: fields.title, 
+                value: 'Advisor', 
+                label: 'Title', 
+                readonly: true,})
+            else
+              -
+                pug_html += app.fields.textLabel('title', {
+                schema: fields.title, 
+                value: model.title, 
+                label: 'Title',})
+              //.col-xl-6.col-lg-6.col-md-6
+
+        -
+          pug_html += app.fields.textareaLabel('bio', {
+          schema: fields.bio, 
+          placeholder: 'Please Write a Short Bio.',
+          value: model.bio, label: 'Bio',})
+        .row
+          .col-xl-6.col-lg-6.col-md-6
+            -
+              pug_html += app.fields.textLabel('city', {
+              schema: fields.city, 
+              value: model.city, 
+              label:  'Where Did You Grow Up?',
+              help_text: 'Why do we ask? These affinity based questions can help us share your campaign with potential  investors with similar backgrounds.', 
+              placeholder: 'Name of Hometown',})
+          .col-xl-6.col-lg-6.col-md-6
+            -
+              pug_html += app.fields.textLabel('college', {
+              schema: fields.college, 
+              value: model.college, 
+              label:  'Where Did You Attend College?', 
+              placeholder: 'Name of College or University',})
+        .row
+          .col-xl-6.col-lg-6.col-md-6
+            -
+              pug_html += app.fields.textLabel('linkedin', {
+              schema: fields.linkedin, 
+              value: model.linkedin, 
+              label:  'Your LinkedIn Link', 
+              placeholder: 'Your LinkedIn Profile',})
+          .col-xl-6.col-lg-6.col-md-6
+            -
+              pug_html += app.fields.textLabel('facebook', {
+              schema: fields.facebook, 
+              value: model.facebook, 
+              label:  'Your Facebook Link', 
+              placeholder: 'Your Facebook Profile',})
+        #photo_data
+          -
+            pug_html += new imageDropzone.ImageDropzone(view, 
+              'photo_image_id', 
+              'photo_data', 
+              view.fields.photo_image_id
+            ).render().resultHTML;
+
+        .col-lg-12.text-lg-right.p-l-0.p-r-0.p-t-2.text-md-center.text-sm-center.text-xs-center
+          button.btn.btn-secondary.text-uppercase.mr30.cancel cancel
+          button(data-method=index == 'new' ? 'POST' : 'PUT').btn.btn-primary.text-uppercase.pull-lg-right.save Save

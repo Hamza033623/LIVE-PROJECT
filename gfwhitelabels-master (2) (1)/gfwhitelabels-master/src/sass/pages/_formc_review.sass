@@ -1,0 +1,84 @@
+.formc-review
+  h2.text-uppercase
+    font-family: 'opensans'
+  .page-formc-review
+    border: solid 1px $small-text
+    width: 100%
+    min-height: 950px
+    padding: rem(50) rem(65)
+    position: relative
+    @media only screen and (max-width : 991px)
+      padding: rem(50) rem(30)
+    @media only screen and (max-width : 575px)
+      padding: rem(30) rem(15)
+       
+    .top-intro
+      color: $small-text
+    .page-namder
+      position: absolute
+      bottom: 50px
+      margin-top: 50px
+      right: 65px
+    .link-1
+      color: $wild_willow
+      &:hover
+        color: rgba(174,208,124, 0.6)
+  .w-30
+    width: 30%
+  .w-40
+    width: 40%
+  .bg-grey
+    background-color: $alabaster
+  .table th, .table td
+    vertical-align: middle
+  .text-indent
+    text-indent: rem(25)
+  .text-input
+    outline: none
+    border: none
+    border-bottom: solid 1px $small-text
+  .show-input
+    &:after
+      content: '\f040'
+      //content: '*'
+      position: relative
+      left: rem(2)
+      top: rem(-6)
+      font: 8px/1 FontAwesome
+      color: $small-text
+  .logic
+    background-color: red
+    color: $white
+  table
+    th,
+    td
+      max-width: 120px
+    input
+      max-width: 90%
+      padding: 0
+    .form-control-success,
+    .form-control-warning,
+    .form-control-danger
+      padding-right: 0
+      max-width: 90%
+      outline: none
+  input
+    outline: none
+@media print
+  .formc-review
+    .page-formc-review
+      border: none
+      padding: 10px 10px
+      min-height: auto
+      .link-1
+        color: #000
+    .no-print
+      display: none
+    .show-input
+      &:after
+        display: none
+  footer
+    display: none
+
+
+

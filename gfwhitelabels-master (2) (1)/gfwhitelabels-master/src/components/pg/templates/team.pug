@@ -1,0 +1,61 @@
+- document.title = 'GrowthFountain Team';
+- document.head.querySelector('meta[name="description"]').content = 'At GrowthFountain, we are dedicated to helping entrepreneurs as passionate about their business as we are.';
+
+- pug_html += app.breadcrumbs('Meet the GrowthFountain Team', '', [ ['Home', '/'], ['Meet the GrowthFountain Team', ''], ]);
+
+section.text_block.information-page
+  .container
+    .row
+      .col-lg-3.hidden-md-down 
+        .page_title.border-bottom.mb25
+          h4.text-uppercase ABOUT US
+        ul.list-unstyled.custom.pages-left-menu
+          li
+            a(href='/pg/overview').d-inline-block.w-100 GrowthFountain Overview
+          li.active
+            a(href='/pg/team').d-inline-block.w-100 #{app.config.teamName}
+          li.display-partners
+            a(href='/pg/partners').d-inline-block.w-100 Partners
+          li
+            a(href='/pg/contact').d-inline-block.w-100 Contact Us
+          li
+            a(href='/pg/careers').d-inline-block.w-100 Careers
+          li
+            a(href='/pg/news').d-inline-block.w-100 In the News
+          li
+            a(href='/pg/faq').d-inline-block.w-100 FAQ
+
+      .team-member-list
+        .col-lg-9
+          .row
+            .col-lg-12.text-xs-center
+              h2.text-uppercase.m-t-0 #{app.config.teamTitle}
+            .col-xl-12.text-xs-center
+              h3.font-weight-light.m-t-0.m-b-0 We are dedicated to helping entrepreneurs as passionate 
+                br
+                | about their business as we are.
+          .row.m-t-3
+            .col-xl-12.text-xs-center
+              h4.section-bg-line.text-uppercase the team
+          .row.m-b-3
+            .col-xl-6.col-lg-6.photo-wrap.p-r-0
+              // img(src=require("images/pages/ken.jpg")).img-fluid.m-x-auto
+            .col-xl-6.col-lg-6
+              h4.text-uppercase.name.text-lg-left.text-md-center.text-sm-center.text-xs-center.wow.slideInRight
+                .small-text.font-weight-normal
+              p.wow.slideInRight
+
+section.height-block-banner.scroll-paralax.no-paralax-mobile
+  - var styleString = 'background: url(' + require('images/banners/team-bg.jpg') + ')';
+  div(style=styleString + '; height:600px').background
+  .center-wrap.container
+    .row
+      .col-xl-12
+        h2.text-uppercase.m-t-0  Want to work with us?
+        h3.font-weight-light We're always looking for smart, hard working
+          br
+          | team members to help us fulfill our mission:
+          br
+          | to level the playing field for America’s small businesses!
+      .col-xs-12.text-xs-center
+        a(href="/pg/careers").btn.btn-lg.btn-secondary.text-uppercase JOIN NOW

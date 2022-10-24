@@ -1,0 +1,32 @@
+if user.token != ""
+  ul.nav.navbar-nav
+    li.nav-item.user-info
+      a.nav-link.notification.user-info-name
+        span
+          img(src=app.user.data.image_image_id.getUrl('main'))#user-thumbnail.img-fluid.img-circle
+              
+        #user_name #{ user.first_name } #{user.last_name}&nbsp;
+        i.fa.fa-angle-down.hidden-md-down
+      .list-container.user-info-drop.notification-container.drop-container
+        ul.submenu.list-unstyled 
+          li
+            a(href="/account/profile").nav-link Profile
+          if user.companiesMember
+            each v,k in user.companiesMember
+              if v.is_paid == true
+                li
+                  a(href=app.getIssuerDashboardUrl(v.formc_id)).nav-link #{v.company}
+          li
+            a(href="/account/investor-dashboard").nav-link Investor Dashboard
+          li
+            a(href="/account/logout").nav-link Log Out
+              i.fa.fa-sign-out.pull-right
+    
+else
+  ul.nav.navbar-nav
+    // for desktop
+    li.login-sinup.hidden-md-down
+      a(href="/account/login").btn.link-or-button Log in
+    
+    li.login-sinup.hidden-md-down
+      a(href="/account/signup")#sign-up-button.btn.link-or-button sign up

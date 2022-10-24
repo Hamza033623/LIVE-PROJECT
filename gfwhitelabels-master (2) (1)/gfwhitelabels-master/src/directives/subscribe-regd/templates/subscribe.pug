@@ -1,0 +1,61 @@
+-
+  containerClass = containerClass || '';
+  emailClass = emailClass || 'col-xl-12 col-lg-12 p-x-xl-0 p-xs-0';
+  subscribeClass = subscribeClass || 'col-xl-12 col-lg-12 p-x-xl-0 p-xs-0';
+
+-
+  u = u || '50ee1beec395ee0f981299099';
+  id = id || '05daaec998';
+  var subscribeURL = '//Growthfountain.us3.list-manage.com/subscribe/post-json?u=' + u + '&id=' + id + '&c=?'
+  next = next || '/subscription-thanks'
+  buttonText = buttonText || 'Subscribe';
+form(
+  action=subscribeURL
+  method="post"
+  name="mc-embedded-subscribe-form"
+  data-next=next
+).email-subscribe.form-section
+  div(class=containerClass)
+    div(class=emailClass)
+      .row
+        .col-xl-6.col-lg-6.col-md-6
+          input(
+            type="text"
+            placeholder="First name"
+            name="FNAME"
+            value=""
+          ).required.form-control.w-100
+        .col-xl-6.col-lg-6.col-md-6
+          input(
+            type="text"
+            placeholder="Last name"
+            name="LNAME"
+            value=""
+          ).required.form-control.w-100
+      .row(style="margin-top: 20px")
+        .col-xl-6.col-lg-6.col-md-6
+          input(
+            type="email"
+            placeholder="Email Address"
+            name="EMAIL"
+            value=""
+          ).required.email.form-control.w-100
+        .col-xl-6.col-lg-6.col-md-6
+          input(
+            type="text"
+            placeholder="Phone"
+            name="PHONE"
+            value=""
+          ).required.form-control.w-100
+      input(
+        type="hidden"
+        name="b_50ee1beec395ee0f981299099_05daaec998"
+        tabindex="-1"
+        value=""
+      )
+    div.col-xl-3.col-lg-3.col-md-3(style="margin-top: 40px")
+      input(
+        type="submit"
+        value=buttonText
+        name="subscribe"
+      ).button.btn.btn-block.btn-primary

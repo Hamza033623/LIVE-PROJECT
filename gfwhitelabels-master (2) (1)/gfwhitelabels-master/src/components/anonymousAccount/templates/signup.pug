@@ -1,0 +1,81 @@
+- document.title = 'Create Your Account ' + app.config.siteTitle;
+- document.head.querySelector('meta[name="description"]').content = 'Get started with GrowthFountain by creating your free account!';
+
+- pug_html += app.breadcrumbs('Create Your Account', '', [ ['Home', '/'], ['Create Your Account', ''], ]);
+
+section.singup.m-t-85
+  .container
+    .row
+      div.text-center-flex.position-relative.col-xs-12
+        .sign-up-left-banner-img
+        .col-xl-6.col-lg-6.col-md-6.col-sm-12.col-xs-12.p-r-block.p-xs-0
+          .sign-up-left-banner
+            .text-xs-center
+              .block-top-section
+                .wrap-baner-title
+                  h1.text-uppercase Get
+                  h1.text-uppercase.credit.font-weight-bold &nbsp;$25&nbsp;
+                  h1.text-uppercase Credit
+                .wrap-baner
+                  h2.font-weight-light.m-t-0 If You Sign Up Now*
+                  hr
+                  p *Limited time offer for new accounts only. Credit valid for 
+                    | 90 days and can be used only for investments made on this 
+                    | platform. Other conditions apply, see 
+                    span
+                      a(href="/pg/terms-of-use").link-3 Terms of Use.
+        .col-xl-6.col-lg-6.col-md-6.col-sm-12.col-xs-12.p-l-block.p-xs-0
+          .col-xl-12.sign-up-right
+            .sign-up-right-padding
+              h2.text-uppercase.text-sm-center.text-xs-center.p-t-2.m-t-0.m-b-0 Get Started
+              p.text-xs-center Have an Account? 
+                a(href="/account/login").link-3 Log In
+              form(action="" metod="post" novalidate).form-section.signup-form
+                .col-xl-12.text-xs-center.p-xs-0
+                  input(type="hidden" name="domain" value=window.location.host)
+                  .social-btn.m-x-auto
+                    a(data-original-title="facebook" data-network="facebook" href="#")#signup-facebook.btn.btn-block.btn-social-network.btn-facebook.text-uppercase
+                      i.fa.fa-facebook
+                      |  SIGN UP with Facebook
+                    a(data-original-title="Linkedin" data-network="linkedin" href="#")#signup-linkedin.btn.btn-block.btn-social-network.btn-linkedin.text-uppercase
+                      i.fa.fa-linkedin
+                      |  SIGN UP with linkedin
+                    a(data-original-title="Google Plus" data-network="google" href="#")#signup-google.btn.btn-block.btn-social-network.btn-google.text-uppercase
+                      i.fa.fa-google-plus
+                      |  SIGN UP with Google
+                    
+                .fields-group.m-x-auto
+                  .form-group.clearfix.required
+                    .row
+                      .col-lg-12.check-input
+                        label
+                          input(type="checkbox" id="agree-rules" name="checkbox1" value="1")
+                          span.label-text I agree to the 
+                            a(href="/pg/terms-of-use" target="_blank").link-3 Terms of Use
+                            | , 
+                            a(href="/pg/privacy-policy" target="_blank").link-3 Privacy Policy
+                            |  and 
+                            a(href="/pg/electronic-signature" target="_blank").link-3 Electronic Signature and Electronic Delivery of Documentation.
+                  .row
+                    .col-xs-12
+                      .border-bottom.or
+                        span or
+                  .first-last.row
+                    .col-xl-6
+                      -
+                        pug_html += fields.first_name.render();
+
+                    .col-xl-6
+                      -
+                        pug_html += fields.last_name.render();
+
+                    .col-xl-12
+                      -
+                        pug_html += fields.email.render();
+                        pug_html += fields.password1.render();
+                .col-xs-12.m-t-1
+                  .row.text-xs-center
+                    button(type="submit")#register-submit-btn.btn.btn-primary.text-uppercase Sign Up
+            .row
+              .bottom-line.col-xs-12
+                p By signing up I agree to receive occasional issuer and investor notifications from GrowthFountain.

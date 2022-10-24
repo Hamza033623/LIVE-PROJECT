@@ -1,0 +1,97 @@
+| !{app.breadcrumbs('thank you!', '', [ ['Home', '/'], ['Explore', '/companies'], [investment.company.name, '/' + investment.company.slug], ['Invest in ' + investment.company.name, '']])}
+-
+  var SECURITY_TYPE = require('consts/raisecapital/security_type.json');
+  var socialDirective = require('directives/social/index.js');
+  var InvestorInfoProvider = require('directives/social/InvestInfoProvider.js');
+
+  var socialShare = Object.assign({
+    campaign: investment.campaign,
+  }, investment.company);
+
+  var infoProvider = new InvestorInfoProvider(socialShare);
+  var directiveKey = 'invest';
+
+
+.container.thank-you-page
+  .row
+    .col-sm-8.offset-sm-2
+      h2.text-xs-center.m-b-1.font-weight-light.m-t-0.thank-you-page-title
+        .icon-in-circle.m-r-1.d-inline-block.align-middle
+          i(aria-hidden="true").fa.fa-thumbs-o-up
+        | Thank you for your investment.
+      h2.text-xs-center.m-t-0.m-b-0.font-weight-light #{ investment.company.name } is now $#{ investment.amount } closer to their goal!
+
+  .row
+    .col-sm-8.offset-sm-2.mb50.mt50
+      hr.m-t-0.m-b-0
+  .row
+    .col-xl-12.text-xs-center
+      h2.font-weight-light.m-t-0.m-b-2 “I just invested in #{ investment.company.name }!”
+    .col-lg-12.share.p-t-0.text-xs-center.m-b-2
+      | !{ socialDirective.render(directiveKey, infoProvider) }
+  .row.thank-you-page
+    .col-xl-8.offset-xl-2.overview-detail.m-t-0.p-b-0
+      .thankyou-page
+        table.table.table-bordered
+          tbody
+            tr.bgc-row-top
+              td(colspan="2").p-x-0.p-y-0
+                h4.text-uppercase.text-xs-center.campaign-subheading.section-bg-line.m-y-0 Here is a summary of your transaction:
+            tr.bgc-row-middle
+              td.width-50
+                p Transaction ID
+              td
+                p Company
+            tr
+              td
+                h3.font-weight-bold.m-y-0 #{ investment.id }
+              td
+                h3.font-weight-bold.m-y-0 #{ investment.company.name }
+            if investment.security_type == SECURITY_TYPE.RevenueShare || investment.security_type == SECURITY_TYPE.HybridSecurity && investment.amount < investment.campaign.hybrid_toggle_amount
+              tr.bgc-row-middle
+                td.width-50
+                  p Revenue Share
+                td
+                  p Investment
+              tr
+                td
+                  h3.font-weight-bold.m-y-0 #{ investment.percentage_revenue}% Revenue Share Capped at #{investment.cap}x
+                td
+                  h3.font-weight-bold.m-y-0 $#{ investment.amount }
+              if investment.perk && investment.perk.length
+                tr.bgc-row-middle
+                  td(colspan="2") Perk
+              
+                tr
+                  td(colspan="2")
+                    h3.font-weight-bold.m-y-0 #{ investment.perk }
+            if investment.security_type == SECURITY_TYPE.CommonEquity || investment.security_type == SECURITY_TYPE.HybridSecurity && investment.amount >= investment.campaign.hybrid_toggle_amount
+              tr.bgc-row-middle
+                td.width-50
+                  p Common Equity
+                td
+                  p Number of Shares
+              tr
+                td
+                  h3.font-weight-bold.m-y-0 Nonvoting Common Stock
+                td
+                  h3.font-weight-bold.m-y-0 #{ investment.number_of_shares }
+              tr.bgc-row-middle
+                td.width-50
+                  p Investment
+                td
+                  p Perk
+              tr
+                td
+                  h3.font-weight-bold.m-y-0 $#{ investment.amount }
+                td
+                  h3.font-weight-bold.m-y-0
+                    if investment.perk && investment.perk.length
+                      h3.font-weight-bold.m-y-0 #{ investment.perk }
+                    else
+                      h3.m-y-0
+                        hr(style="width:40px;")
+        p.m-b-2.m-t-3 You will have the opportunity to track your investments in the Investor Dashboard
+        .info-btn-block
+          a(href="/account/investor-dashboard").btn.btn-secondary INVESTOR DASHBOARD
+            i.fa.fa-angle-right

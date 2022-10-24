@@ -1,0 +1,104 @@
+.container
+  .row.footer-site-link
+    .col-xl-12
+      a(href="https://www.inc.com/magazine/201710/norm-brodsky/crowdfunding.html" target="_blank").item.text-lg-left.m-l-0
+        img(src=require("images/main_page/inc.png"), alt="")
+      a(href="https://techcrunch.com/2017/01/23/growthfountain/" target="_blank").item
+        img(src=require("images/main_page/techcrunch.png"), alt="")
+      a(href="https://cheddar.vhx.tv/cheddar-archive/videos/cheddar-closing-bell-s3-e013017-j-full-mezz-hd-en-us" target="_blank").item
+        img(src=require("images/main_page/cheddar.png"), alt="")
+      a(href=require('doc/Credit.Union.Times.3_17_17-1.pdf') target="_blank").item
+        img(src=require("images/main_page/creditun.png"), alt="")
+      a(href="https://www.crowdfundinsider.com/2017/04/99381-regulation-crowdfunding-see-day-day/" target="_blank").item.text-lg-right.m-r-0
+        img(src=require("images/main_page/crowdfundinsider.png"), alt="")
+
+      a(href="http://fortune.com/2017/02/23/entrepreneurs-career-advice-work-setbacks-confidence/" target="_blank").item.text-lg-left.m-l-0
+        img(src=require("images/main_page/fortune.png"), alt="")
+      a(href="http://www.builtinnyc.com/2017/01/26/growthfountain-launches-new-york" target="_blank").item
+        img(src=require("images/main_page/builtinnyc.png"), alt="")
+      a(href="https://www.fa-mag.com/news/small-investprs-invest-in-small-businesses-31094.html?section=43" target="_blank").item
+        img(src=require("images/main_page/fa.png"), alt="")
+      a(href="https://news.efinancialcareers.com/us-en/273289/from-hedge-funds-to-kickstarter-meets-goldman-sachs-startup-growthfountain/" target="_blank").item
+        img(src=require("images/main_page/efc.png"), alt="")
+      a(href="http://moneyinc.com/future-fundraising-extension-social-contract/" target="_blank").item.text-lg-right.m-r-0
+        img(src=require("images/main_page/moneyinc.png"), alt="")
+  .row
+    .col-xs-12
+      hr.m-t-2.m-b-3
+  .row
+    .col-xl-3.col-lg-8.offset-lg-2.offset-xl-0
+      .col-xl-12.col-lg-6.col-md-6.col-sm-6.col-xs-12.p-x-0.col-sm-left
+        .d-inline-block
+          .display-partners
+            p.fade-in-logo#fade_in_logo
+              img(src=require("images/fade-in-logo.png") alt="")
+        .company.text-lg-left.d-inline-block
+          span ©GROWTHFOUNTAIN 2017.
+          p Made with heart in NYC
+      .col-xl-12.p-x-0.hidden-lg-down
+        .newsletter
+          p Sign up for our newsletter
+      .col-xl-12.col-lg-6.col-md-6.col-sm-6.text-lg-left.col-xs-12.p-x-xl-0.p-xs-0
+        .footer-social.footer-email-subscribe
+          -
+            var subscribeDirective = require('directives/subscribe/index.js');
+            pug_html += subscribeDirective.render();
+      .col-xl-12.offset-xl-0.col-lg-3.col-md-12.col-xs-12.p-x-0.text-lg-left
+        .footer-social.social-position
+          a(href="https://www.facebook.com/GrowthFountain/" target="_blank").link-1.d-inline-block
+            i.fa.fa-facebook
+          a(href="https://www.linkedin.com/company/growthfountain" target="_blank").link-1.d-inline-block
+            i.fa.fa-linkedin
+          a(href="https://twitter.com/growthfountain" target="_blank").link-1.d-inline-block
+            i.fa.fa-twitter
+    .col-xl-2.col-lg-3.col-md-6.col-sm-6.col-xs-12.m-t-mobile-1
+      .footer_title
+        h4.text-uppercase About us
+      a(href="/pg/overview").overview-footer-link GrowthFountain Overview
+      a(href="/pg/team") #{app.config.teamName}
+      a(href="/pg/partners").display-partners Partners
+      a(href="/pg/contact") Contact Us
+      a(href="/pg/careers") Careers
+      a(href="/pg/news") In the News
+      a(href="/pg/faq").mb20 FAQ
+      //- a(href="/pg/blogs").mb20 Blog
+    .col-xl-2.col-lg-3.col-md-6.col-sm-6.col-xs-12.p-l-md-0.p-x-0-custom.m-t-mobile-1
+      .footer_title
+        h4.text-uppercase Investor resources
+      a(href="/pg/investor-tutorial") Investor Tutorial
+      a(href="/pg/education") Education
+      a(href="/pg/investor-questions").mb20 FAQ
+    .col-xl-3.col-lg-3.col-md-6.col-sm-6.col-xs-12.p-r-md-0.m-t-mobile-1.business-resources
+      .footer_title
+        h4.text-uppercase Business resources
+      a(href="/pg/business-tutorial") Business Tutorial
+      //- a(href="") Campaign Material
+      a(href="/pg/success-guide") Success Guide
+      a(href="/pg/advertising").nav-link Advertising and Communication
+      a(href="/calculator/revenue-share").nav-link Revenue Share Calculator
+      a(href="/calculator/capital-raise") How Much Should I Raise?
+      a(href="/calculator/business-valuation") Business Valuation Calculator
+      a(href="/pg/entrepreneur-questions").mb20 FAQ
+
+    .col-xl-2.col-lg-3.col-md-6.col-sm-6.col-xs-12.m-t-mobile-1
+      .footer_title
+        h4.text-uppercase Legal
+      a(href="/pg/terms-of-use") Terms of Use
+      a(href="/pg/privacy-policy") Privacy Policy
+      a(href="/pg/annual-privacy") Annual Privacy Notice
+      a(href="/pg/electronic-signature").mb20 ESIGN Disclosure
+
+.footer-bottom-section.mt30
+  .container
+    .row.m-b-3
+      .col-lg-12
+        p.small.text-muted.p-t-3 GrowthFountain.com is operated by GrowthFountain, LLC (“GF”) and is NOT a funding portal registered with the US Securities and Exchange Commission (“SEC”) and is NOT a member of the Financial Industry Regulatory Authority (“FINRA”).  By viewing and using the Platform, you agree to be bound by our Terms of Use and Privacy Policy, as may be amended. GF is not a registered broker dealer or an investment advisor. GF and its affiliates do not make investment recommendations or provide any investment advice. No communication, through the Platform or otherwise, should be construed as advice or a recommendation for any securities.
+    if window.location.host == 'jdcu.growthfountain.com'
+      section.home-wrap-text-block.top-block.text-xs-center.top-baner-tabel
+        .col-xl-11.offset-xl-1.top-baner-tabel.m-b-3
+          .col-xl-4.left.p-l-0.p-r-0.border
+            h3.font-weight-bold.m0.letter-spacing-normal.padding-5 Not NCUA Insured
+          .col-xl-4.center.p-l-0.p-r-0.border
+            h3.font-weight-bold.m0.letter-spacing-normal.padding-5 Not Credit Union Guaranteed
+          .col-xl-4.right.p-l-0.p-r-0.border
+            h3.font-weight-bold.m0.letter-spacing-normal.padding-5 May Lose Value
